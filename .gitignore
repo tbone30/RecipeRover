@@ -1,0 +1,14 @@
+# Vue.js
+.DS_Store
+node_modules
+/dist
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# IDE
+.vscode/
+*.swp
+*.swo

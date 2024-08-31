@@ -14,6 +14,11 @@ type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
 }
 
+/**
+ * Renders a login form component with email and password fields
+ * @param {LoginFormProps} props - The props for the LoginForm component
+ * @returns {JSX.Element} A React component that displays a login form with email and password fields, login button, forgot password link, and sign up link
+ */
 export const LoginForm = (props: LoginFormProps) => {
   const [loginMutation] = useMutation(login)
   const router = useRouter()
@@ -26,6 +31,11 @@ export const LoginForm = (props: LoginFormProps) => {
         submitText="Login"
         schema={Login}
         initialValues={{ email: "", password: "" }}
+        /**
+         * Handles form submission for user login
+         * @param {Object} values - The form values containing login credentials
+         * @returns {Promise<Object|void>} A promise that resolves to an error object if login fails, or void if successful
+         */
         onSubmit={async (values) => {
           try {
             await loginMutation(values)

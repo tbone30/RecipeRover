@@ -5,26 +5,61 @@ import forgotPassword from "./forgotPassword"
 import previewEmail from "preview-email"
 import { Ctx } from "@blitzjs/next"
 
+/**
+ * Resets the database before each test
+ * @returns {Promise<void>} A promise that resolves when the database reset is complete
+ */
 beforeEach(async () => {
   await db.$reset()
 })
 
 const generatedToken = "plain-token"
+/**
+ * Mocks the @blitzjs/auth module for testing purposes
+ * @param {void} None
+ * @returns {Object} An object containing the original auth module properties with a mocked generateToken function
+ */
 vi.mock("@blitzjs/auth", async () => {
   const auth = await vi.importActual<Record<string, unknown>>("@blitzjs/auth")!
   return {
     ...auth,
+    /**
+     * Generates and returns a token.
+     * @returns {string} The generated token.
+     */
     generateToken: () => generatedToken,
   }
 })
 
+/**
+ * Mocks the "preview-email" module using Vitest
+ * @param {string} "preview-email" - The module path to be mocked
+ * @returns {object} An object with a mocked default export function
+ */
 vi.mock("preview-email", () => ({ default: vi.fn() }))
 
+/**
+ * Test suite for the forgotPassword mutation
+ * @param {void} None - This is a test suite and doesn't take parameters directly
+ * @returns {void} This test suite doesn't return a value, it performs assertions
+ */
 describe("forgotPassword mutation", () => {
+  /**
+   * Test case to verify that the forgotPassword function does not throw an error for a non-existent user.
+   * @param {Object} testObject - The test object containing the email for a non-existent user.
+   * @param {string} testObject.email - The email address of a non-existent user.
+   * @param {Object} contextObject - The context object, typed as Ctx (likely a mock or stub).
+   * @returns {Promise<void>} A promise that resolves if no error is thrown, as expected.
+   */
   it("does not throw error if user doesn't exist", async () => {
     await expect(forgotPassword({ email: "no-user@email.com" }, {} as Ctx)).resolves.not.toThrow()
   })
 
+  /**
+   * Tests the functionality of the forgotPassword mutation.
+   * @param {void} - This test function doesn't take any parameters.
+   * @returns {Promise<void>} Resolves when the test is complete.
+   */
   it("works correctly", async () => {
     // Create test user
     const user = await db.user.create({

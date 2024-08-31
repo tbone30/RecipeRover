@@ -4,6 +4,11 @@ import { LogoutButton } from "./(auth)/components/LogoutButton"
 import styles from "./styles/Home.module.css"
 import getCurrentUser from "./users/queries/getCurrentUser"
 
+/**
+ * Renders the home page of the application
+ * @param {void} - This function doesn't accept any parameters
+ * @returns {JSX.Element} A React component representing the home page layout
+ */
 export default async function Home() {
   const currentUser = await invoke(getCurrentUser, null)
   return (

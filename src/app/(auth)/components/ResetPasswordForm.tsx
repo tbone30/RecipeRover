@@ -7,6 +7,10 @@ import { useMutation } from "@blitzjs/rpc"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 
+/**
+ * ResetPasswordForm component for rendering a password reset form.
+ * @returns {JSX.Element} A React component that displays either a password reset form or a success message.
+ */
 export function ResetPasswordForm() {
   const searchParams = useSearchParams()
   const token = searchParams?.get("token")?.toString()
@@ -32,6 +36,12 @@ export function ResetPasswordForm() {
             passwordConfirmation: "",
             token,
           }}
+          /**
+           * Handles form submission for password reset
+           * @param {Object} values - The form values containing reset password data
+           * @param {string} token - The reset password token
+           * @returns {Promise<Object|undefined>} An object with FORM_ERROR if an error occurs, undefined otherwise
+           */
           onSubmit={async (values) => {
             try {
               await resetPasswordMutation({ ...values, token })

@@ -4,6 +4,10 @@ import db from "db"
 import { hash256 } from "@blitzjs/auth"
 import { SecurePassword } from "@blitzjs/auth/secure-password"
 
+/**
+ * Resets the database before each test
+ * @returns {Promise<void>} A promise that resolves when the database reset is complete
+ */
 beforeEach(async () => {
   await db.$reset()
 })
@@ -14,7 +18,17 @@ const mockCtx: any = {
   },
 }
 
+/**
+ * Test suite for the resetPassword mutation
+ * @param {void} - This function doesn't take any parameters
+ * @returns {void} This function doesn't return anything, it uses Jest's expect statements for assertions
+ */
 describe("resetPassword mutation", () => {
+  /**
+   * Test case for password reset functionality
+   * @param {void} - This function doesn't take any parameters
+   * @returns {Promise<void>} Resolves when all assertions have passed
+   */
   it("works correctly", async () => {
     expect(true).toBe(true)
 

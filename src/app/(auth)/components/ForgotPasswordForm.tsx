@@ -5,6 +5,10 @@ import { ForgotPassword } from "../validations"
 import forgotPassword from "../mutations/forgotPassword"
 import { useMutation } from "@blitzjs/rpc"
 
+/**
+ * Renders a forgot password form component
+ * @returns {JSX.Element} A React component that displays either a form to submit a forgot password request or a success message
+ */
 export function ForgotPasswordForm() {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
 
@@ -25,6 +29,11 @@ export function ForgotPasswordForm() {
             submitText="Send Reset Password Instructions"
             schema={ForgotPassword}
             initialValues={{ email: "" }}
+            /**
+             * Handles the form submission for the forgot password functionality
+             * @param {Object} values - The form values containing the user's input
+             * @returns {Object|undefined} Returns an object with FORM_ERROR if an error occurs, otherwise undefined
+             */
             onSubmit={async (values) => {
               try {
                 await forgotPasswordMutation(values)

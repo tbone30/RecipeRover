@@ -10,6 +10,11 @@ type SignupFormProps = {
   onSuccess?: () => void
 }
 
+/**
+ * Renders a signup form component for creating a new account.
+ * @param {SignupFormProps} props - The properties passed to the SignupForm component.
+ * @returns {JSX.Element} A React component containing a form for user signup.
+ */
 export const SignupForm = (props: SignupFormProps) => {
   const [signupMutation] = useMutation(signup)
   const router = useRouter()
@@ -22,6 +27,11 @@ export const SignupForm = (props: SignupFormProps) => {
         submitText="Create Account"
         schema={Signup}
         initialValues={{ email: "", password: "" }}
+        /**
+         * Handles form submission for user signup
+         * @param {Object} values - The form values submitted by the user
+         * @returns {Object|undefined} An object containing error messages if signup fails, or undefined if successful
+         */
         onSubmit={async (values) => {
           try {
             await signupMutation(values)

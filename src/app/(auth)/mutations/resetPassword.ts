@@ -10,6 +10,15 @@ export class ResetPasswordError extends Error {
   message = "Reset password link is invalid or it has expired."
 }
 
+/**
+ * Resets user password using a token-based authentication system
+ * @param {Object} params - The parameters object
+ * @param {string} params.password - The new password to set
+ * @param {string} params.token - The reset password token
+ * @param {Object} ctx - The context object
+ * @returns {boolean} True if password reset is successful
+ * @throws {ResetPasswordError} If token is invalid, expired, or not found
+ */
 export default resolver.pipe(resolver.zod(ResetPassword), async ({ password, token }, ctx) => {
   if (!token) throw new ResetPasswordError("Token is required")
   // 1. Try to find this token in the database

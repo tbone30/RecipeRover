@@ -10,6 +10,13 @@ type ResetPasswordMailer = {
   token: string
 }
 
+/**
+ * Generates a password reset email with a reset link
+ * @param {Object} options - The options for the reset password mailer
+ * @param {string} options.to - The recipient's email address
+ * @param {string} options.token - The password reset token
+ * @returns {Object} An object with a send method to dispatch the email
+ */
 export function forgotPasswordMailer({ to, token }: ResetPasswordMailer) {
   // In production, set APP_ORIGIN to your production server origin
   const origin = process.env.APP_ORIGIN || process.env.BLITZ_DEV_SERVER_ORIGIN
